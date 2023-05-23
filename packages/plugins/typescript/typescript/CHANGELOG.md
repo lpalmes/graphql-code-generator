@@ -1,5 +1,154 @@
 # @graphql-codegen/typescript
 
+## 4.0.0
+
+### Major Changes
+
+- [#9375](https://github.com/dotansimha/graphql-code-generator/pull/9375) [`ba84a3a27`](https://github.com/dotansimha/graphql-code-generator/commit/ba84a3a2758d94dac27fcfbb1bafdf3ed7c32929) Thanks [@eddeee888](https://github.com/eddeee888)! - Implement Scalars with input/output types
+
+  In GraphQL, Scalar types can be different for client and server. For example, given the native GraphQL ID:
+
+  - A client may send `string` or `number` in the input
+  - A client receives `string` in its selection set (i.e output)
+  - A server receives `string` in the resolver (GraphQL parses `string` or `number` received from the client to `string`)
+  - A server may return `string` or `number` (GraphQL serializes the value to `string` before sending it to the client )
+
+  Currently, we represent every Scalar with only one type. This is what codegen generates as base type:
+
+  ```ts
+  export type Scalars = {
+    ID: string;
+  };
+  ```
+
+  Then, this is used in both input and output type e.g.
+
+  ```ts
+  export type Book = {
+    __typename?: 'Book';
+    id: Scalars['ID']; // Output's ID can be `string` 👍
+  };
+
+  export type QueryBookArgs = {
+    id: Scalars['ID']; // Input's ID can be `string` or `number`. However, the type is only `string` here 👎
+  };
+  ```
+
+  This PR extends each Scalar to have input and output:
+
+  ```ts
+  export type Scalars = {
+    ID: {
+      input: string | number;
+      output: string;
+    };
+  };
+  ```
+
+  Then, each input/output GraphQL type can correctly refer to the correct input/output scalar type:
+
+  ```ts
+  export type Book = {
+    __typename?: 'Book';
+    id: Scalars['ID']['output']; // Output's ID can be `string` 👍
+  };
+
+  export type QueryBookArgs = {
+    id: Scalars['ID']['input']; // Input's ID can be `string` or `number` 👍
+  };
+  ```
+
+  Note that for `typescript-resolvers`, the type of ID needs to be inverted. However, the referenced types in GraphQL input/output types should still work correctly:
+
+  ```ts
+  export type Scalars = {
+    ID: {
+      input: string;
+      output: string | number;
+    }
+  }
+
+  export type Book = {
+    __typename?: "Book";
+    id: Scalars["ID"]['output']; // Resolvers can return `string` or `number` in ID fields 👍
+  };
+
+  export type QueryBookArgs = {
+    id: Scalars["ID"]['input']; // Resolvers receive `string` in ID fields 👍
+  };
+
+  export type ResolversTypes = {
+    ID: ID: ResolverTypeWrapper<Scalars['ID']['output']>; // Resolvers can return `string` or `number` in ID fields 👍
+  }
+
+  export type ResolversParentTypes = {
+    ID: Scalars['ID']['output']; // Resolvers receive `string` or `number` from parents 👍
+  };
+  ```
+
+  ***
+
+  Config changes:
+
+  1. Scalars option can now take input/output types:
+
+  ```ts
+  config: {
+    scalars: {
+      ID: {
+        input: 'string',
+        output: 'string | number'
+      }
+    }
+  }
+  ```
+
+  2. If a string is given (instead of an object with input/output fields), it will be used as both input and output types:
+
+  ```ts
+  config: {
+    scalars: {
+      ID: 'string'; // This means `string` will be used for both ID's input and output types
+    }
+  }
+  ```
+
+  3. BREAKING CHANGE: External module Scalar types need to be an object with input/output fields
+
+  ```ts
+  config: {
+    scalars: {
+      ID: './path/to/scalar-module';
+    }
+  }
+  ```
+
+  If correctly, wired up, the following will be generated:
+
+  ```ts
+  // Previously, imported `ID` type can be a primitive type, now it must be an object with input/output fields
+  import { ID } from './path/to/scalar-module';
+
+  export type Scalars = {
+    ID: { input: ID['input']; output: ID['output'] };
+  };
+  ```
+
+  ***
+
+  BREAKING CHANGE: This changes Scalar types which could be referenced in other plugins. If you are a plugin maintainer and reference Scalar, please update your plugin to use the correct input/output types.
+
+### Minor Changes
+
+- [#9196](https://github.com/dotansimha/graphql-code-generator/pull/9196) [`3848a2b73`](https://github.com/dotansimha/graphql-code-generator/commit/3848a2b73339fe9f474b31647b71e75b9ca52a96) Thanks [@beerose](https://github.com/beerose)! - Add `@defer` directive support
+
+### Patch Changes
+
+- Updated dependencies [[`4d9ea1a5a`](https://github.com/dotansimha/graphql-code-generator/commit/4d9ea1a5a94cd3458c1bd868ce1ab1cb806257f2), [`4d9ea1a5a`](https://github.com/dotansimha/graphql-code-generator/commit/4d9ea1a5a94cd3458c1bd868ce1ab1cb806257f2), [`4d9ea1a5a`](https://github.com/dotansimha/graphql-code-generator/commit/4d9ea1a5a94cd3458c1bd868ce1ab1cb806257f2), [`f46803a8c`](https://github.com/dotansimha/graphql-code-generator/commit/f46803a8c70840280529a52acbb111c865712af2), [`5f1073333`](https://github.com/dotansimha/graphql-code-generator/commit/5f1073333fe705053a54b57974d14ccf53088114), [`3848a2b73`](https://github.com/dotansimha/graphql-code-generator/commit/3848a2b73339fe9f474b31647b71e75b9ca52a96), [`ba84a3a27`](https://github.com/dotansimha/graphql-code-generator/commit/ba84a3a2758d94dac27fcfbb1bafdf3ed7c32929), [`63827fabe`](https://github.com/dotansimha/graphql-code-generator/commit/63827fabede76b2380d40392aba2a3ccb099f0c4), [`50471e651`](https://github.com/dotansimha/graphql-code-generator/commit/50471e6514557db827cd26157262401c6c600a8c), [`5aa95aa96`](https://github.com/dotansimha/graphql-code-generator/commit/5aa95aa969993043ba5e9d5dabebd7127ea5e22c), [`ca02ad172`](https://github.com/dotansimha/graphql-code-generator/commit/ca02ad172a0e8f52570fdef4271ec286d883236d), [`5950f5a68`](https://github.com/dotansimha/graphql-code-generator/commit/5950f5a6843cdd92b9d5b8ced3a97b68eadf9f30), [`5aa95aa96`](https://github.com/dotansimha/graphql-code-generator/commit/5aa95aa969993043ba5e9d5dabebd7127ea5e22c)]:
+  - @graphql-codegen/plugin-helpers@4.2.1
+  - @graphql-codegen/schema-ast@3.0.2
+  - @graphql-codegen/visitor-plugin-common@4.0.0
+
 ## 3.0.4
 
 ### Patch Changes

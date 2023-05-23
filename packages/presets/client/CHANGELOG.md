@@ -1,5 +1,38 @@
 # @graphql-codegen/client-preset
 
+## 3.1.0
+
+### Minor Changes
+
+- [#9196](https://github.com/dotansimha/graphql-code-generator/pull/9196) [`3848a2b73`](https://github.com/dotansimha/graphql-code-generator/commit/3848a2b73339fe9f474b31647b71e75b9ca52a96) Thanks [@beerose](https://github.com/beerose)! - Add `@defer` directive support
+
+- [#9353](https://github.com/dotansimha/graphql-code-generator/pull/9353) [`d7e335b58`](https://github.com/dotansimha/graphql-code-generator/commit/d7e335b5874a821c9f609c66d554921ed8c6de19) Thanks [@charpeni](https://github.com/charpeni)! - Implement the ability the specify the hash algorithm used for persisted documents via `persistedDocuments.hashAlgorithm`
+
+### Patch Changes
+
+- [#9449](https://github.com/dotansimha/graphql-code-generator/pull/9449) [`4d9ea1a5a`](https://github.com/dotansimha/graphql-code-generator/commit/4d9ea1a5a94cd3458c1bd868ce1ab1cb806257f2) Thanks [@n1ru4l](https://github.com/n1ru4l)! - dependencies updates:
+
+  - Updated dependency [`@graphql-tools/documents@^1.0.0` ↗︎](https://www.npmjs.com/package/@graphql-tools/documents/v/1.0.0) (from `^0.1.0`, in `dependencies`)
+  - Updated dependency [`@graphql-tools/utils@^10.0.0` ↗︎](https://www.npmjs.com/package/@graphql-tools/utils/v/10.0.0) (from `^9.0.0`, in `dependencies`)
+
+- [#9384](https://github.com/dotansimha/graphql-code-generator/pull/9384) [`5f1073333`](https://github.com/dotansimha/graphql-code-generator/commit/5f1073333fe705053a54b57974d14ccf53088114) Thanks [@beerose](https://github.com/beerose)! - Support @defer directive in nested fragments
+
+- [#9315](https://github.com/dotansimha/graphql-code-generator/pull/9315) [`6d2de206a`](https://github.com/dotansimha/graphql-code-generator/commit/6d2de206abdcce9e176bbc157cd27b37a20b0f97) Thanks [@luvejo](https://github.com/luvejo)! - improve error message
+
+- [#9385](https://github.com/dotansimha/graphql-code-generator/pull/9385) [`a7dda3546`](https://github.com/dotansimha/graphql-code-generator/commit/a7dda3546567b5bb70015fc3ae197562231d7911) Thanks [@beerose](https://github.com/beerose)! - Improve isFragmentReady utility function to work with noUncheckedIndexedAccess TSC setting
+
+- [#9196](https://github.com/dotansimha/graphql-code-generator/pull/9196) [`3848a2b73`](https://github.com/dotansimha/graphql-code-generator/commit/3848a2b73339fe9f474b31647b71e75b9ca52a96) Thanks [@beerose](https://github.com/beerose)! - Pass `emitLegacyCommonJSImports` and `isStringDocumentMode` to the client preset config
+
+- [#9414](https://github.com/dotansimha/graphql-code-generator/pull/9414) [`ca02ad172`](https://github.com/dotansimha/graphql-code-generator/commit/ca02ad172a0e8f52570fdef4271ec286d883236d) Thanks [@beerose](https://github.com/beerose)! - Include nested fragments in string documentMode
+
+- Updated dependencies [[`4d9ea1a5a`](https://github.com/dotansimha/graphql-code-generator/commit/4d9ea1a5a94cd3458c1bd868ce1ab1cb806257f2), [`4d9ea1a5a`](https://github.com/dotansimha/graphql-code-generator/commit/4d9ea1a5a94cd3458c1bd868ce1ab1cb806257f2), [`4d9ea1a5a`](https://github.com/dotansimha/graphql-code-generator/commit/4d9ea1a5a94cd3458c1bd868ce1ab1cb806257f2), [`f46803a8c`](https://github.com/dotansimha/graphql-code-generator/commit/f46803a8c70840280529a52acbb111c865712af2), [`5f1073333`](https://github.com/dotansimha/graphql-code-generator/commit/5f1073333fe705053a54b57974d14ccf53088114), [`3848a2b73`](https://github.com/dotansimha/graphql-code-generator/commit/3848a2b73339fe9f474b31647b71e75b9ca52a96), [`ba84a3a27`](https://github.com/dotansimha/graphql-code-generator/commit/ba84a3a2758d94dac27fcfbb1bafdf3ed7c32929), [`63827fabe`](https://github.com/dotansimha/graphql-code-generator/commit/63827fabede76b2380d40392aba2a3ccb099f0c4), [`50471e651`](https://github.com/dotansimha/graphql-code-generator/commit/50471e6514557db827cd26157262401c6c600a8c), [`5aa95aa96`](https://github.com/dotansimha/graphql-code-generator/commit/5aa95aa969993043ba5e9d5dabebd7127ea5e22c), [`ca02ad172`](https://github.com/dotansimha/graphql-code-generator/commit/ca02ad172a0e8f52570fdef4271ec286d883236d), [`5950f5a68`](https://github.com/dotansimha/graphql-code-generator/commit/5950f5a6843cdd92b9d5b8ced3a97b68eadf9f30), [`5aa95aa96`](https://github.com/dotansimha/graphql-code-generator/commit/5aa95aa969993043ba5e9d5dabebd7127ea5e22c)]:
+  - @graphql-codegen/gql-tag-operations@3.0.2
+  - @graphql-codegen/plugin-helpers@4.2.1
+  - @graphql-codegen/visitor-plugin-common@4.0.0
+  - @graphql-codegen/typed-document-node@4.1.0
+  - @graphql-codegen/typescript-operations@4.0.0
+  - @graphql-codegen/typescript@4.0.0
+
 ## 3.0.1
 
 ### Patch Changes

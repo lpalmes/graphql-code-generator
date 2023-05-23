@@ -1,5 +1,15 @@
 # @graphql-codegen/core
 
+## 3.1.1
+
+### Patch Changes
+
+- [#9449](https://github.com/dotansimha/graphql-code-generator/pull/9449) [`4d9ea1a5a`](https://github.com/dotansimha/graphql-code-generator/commit/4d9ea1a5a94cd3458c1bd868ce1ab1cb806257f2) Thanks [@n1ru4l](https://github.com/n1ru4l)! - dependencies updates:
+  - Updated dependency [`@graphql-tools/schema@^10.0.0` ↗︎](https://www.npmjs.com/package/@graphql-tools/schema/v/10.0.0) (from `^9.0.0`, in `dependencies`)
+  - Updated dependency [`@graphql-tools/utils@^10.0.0` ↗︎](https://www.npmjs.com/package/@graphql-tools/utils/v/10.0.0) (from `^9.1.1`, in `dependencies`)
+- Updated dependencies [[`4d9ea1a5a`](https://github.com/dotansimha/graphql-code-generator/commit/4d9ea1a5a94cd3458c1bd868ce1ab1cb806257f2), [`f46803a8c`](https://github.com/dotansimha/graphql-code-generator/commit/f46803a8c70840280529a52acbb111c865712af2), [`63827fabe`](https://github.com/dotansimha/graphql-code-generator/commit/63827fabede76b2380d40392aba2a3ccb099f0c4)]:
+  - @graphql-codegen/plugin-helpers@4.2.1
+
 ## 3.1.0
 
 ### Minor Changes
